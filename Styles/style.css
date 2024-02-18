@@ -2,7 +2,7 @@
 
 
   1. Box-Sizing-Reset & margin/padding reset
-  2.
+  2. BASIC TYPOGRAPHY 
   3.
   4.
   5.
@@ -10,10 +10,17 @@
   7.
   8.
 
-  
+  */
+
+@font-face {
+  font-family: "league_spartanbold";
+  src: url("leaguespartan-bold-webfont.woff2") format("woff2"),
+    url("leaguespartan-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* 1. Box-Sizing-Reset */
-
 html {
   box-sizing: border-box;
 }
@@ -27,11 +34,9 @@ html {
   margin: 0;
   padding: 0;
 }
-
 /* 2. BASIC TYPOGRAPHY */
 
 /* Setting up color variables so I don't have to change color at multiple places if I decide to change a common color */
-
 :root {
   --background-color: #fff;
   --body-text-color: #2e475d;
@@ -41,7 +46,11 @@ html {
   --quote-color: #74c3f1;
   --grey-bg-color: rgba(217, 217, 217, 0.675);
   --darkgrey-bg-color: rgb(56, 56, 56);
-  --def: #ffffff;
+  --def: #fff;
+  --top-container-name-color: #ffffd4;
+  --top-container-name-link-color: #ffffd4;
+  --top-container-title-color: #d9edf9;
+  --alt-background: rgb(238, 236, 236);
 }
 
 body {
@@ -57,7 +66,6 @@ body {
 }
 
 /* Setting up general font-familys, font-size, font-weight and line-height for the elements selected down under */
-
 body,
 input,
 select,
@@ -69,7 +77,6 @@ textarea {
 }
 
 /* Choosing other fonts for headings 1 - 3 and giving them my variable color for headings, font-weight, line-height and text-transform so all the letters are uppercased. */
-
 h1,
 h2,
 h3 {
@@ -79,7 +86,6 @@ h3 {
   line-height: 1em;
   text-transform: uppercase;
 }
-
 /* Making the headings and paragraphs responsive with the clamp css-function (The font-size of this text varies depending on the base font of the page, and the size of the viewport.) */
 
 h1 {
@@ -109,6 +115,10 @@ h3 {
   margin: 0.8rem 0.4rem;
 }
 
+h4 {
+  margin: 0.6rem 0;
+}
+
 h3::after {
   margin: 0.5rem 0;
   height: 0.2rem;
@@ -123,28 +133,37 @@ h3::after {
 
 p {
   font-size: clamp(0.1rem, 0.1rem + 2.8vw, 1rem);
-  margin: 0.8em 0.4em;
+  margin: 0.2rem auto;
 }
 
 /* Styling the blockquote element with a grey background,
 round corners and an italic font-style to seperate it from the body-text */
-
 blockquote {
   quotes: initial;
   font-style: italic;
   line-height: 1.4em;
+  margin: 0.4rem auto;
+  padding: 1.5rem 1rem;
+  border-radius: 0.2rem;
+}
+
+.blockquote--article-section {
   background-color: var(--grey-bg-color);
-  margin: 0rem 0.8rem;
-  padding: 1rem;
-  border-radius: 1rem;
+}
+
+.blockquote--image-section {
+  background-color: rgba(0, 0, 0, 0.318);
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0 0 1rem 0;
+  padding: 2rem;
 }
 
 /* Using the pseudo-elements ::before and ::after to put in quotations marks inside the blockquote element before and after the text + styling them to have them stand out */
-
 blockquote::before {
   font-family: Georgia, "Times New Roman", Times, serif;
   content: open-quote;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--quote-color);
   margin: 0.2rem;
@@ -153,19 +172,40 @@ blockquote::before {
 blockquote::after {
   font-family: Georgia, "Times New Roman", Times, serif;
   content: close-quote;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--quote-color);
   margin: 0.2rem;
 }
 
-/* Same as over but with different styling for inline quotes */
+cite {
+  display: flex;
+  justify-content: center;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+}
 
+.cite--article {
+  margin-bottom: 0.1rem;
+  padding: 0;
+}
+
+.cite--image-section {
+  color: #fff;
+}
+
+.cite-ref {
+  display: flex;
+  justify-content: center;
+  font-size: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Same as over but with different styling for inline quotes */
 q {
   quotes: initial;
   font-style: italic;
   font-size: 0.9rem;
-  /* background-color: rgb(234, 231, 231); */
   margin: 0.2rem;
   padding: 0.2rem;
 }
@@ -181,7 +221,6 @@ q {
 }
 
 /* Adding line-break to the pseudo-after element, doing it this way I dont have to repeat myself in the html markup (DRY) */
-
 .q-cite::after {
   content: "\A";
   white-space: pre;
@@ -205,25 +244,7 @@ q::after {
   margin: 0.2rem;
 }
 
-/* More styling for the differents parts of quote markups */
-
-figcaption {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 0.8rem; /* ¾ of the body text */
-  margin: 0.2rem 1rem;
-  padding: 0;
-  line-height: 1rem;
-}
-
-cite {
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bolder;
-  padding: 0;
-  margin: 0;
-}
-
 /* General link and emphaasize styling */
-
 a {
   text-decoration: none;
   color: #050505;
@@ -241,7 +262,6 @@ i {
 }
 
 /* General link pseudoelements */
-
 a:hover {
   text-decoration: underline;
 }
@@ -273,7 +293,6 @@ h1 a:active {
 
 /* I make the a links set with the attribute data-tool-tip to choose specific links that I want to do something with. In this case a nice little extra-information tip-bubble */
 /* Using transform scale and transition for neat little animation triggered with the pseudo class :hover */
-
 a[data-tool-tip] {
   position: relative;
   color: #303030;
@@ -308,7 +327,6 @@ a[data-tool-tip]:hover::after {
 }
 
 /* TOP CONTAINER (Holding Header and Navigation) */
-
 .top-container {
   display: flex;
   flex-direction: row;
@@ -316,7 +334,14 @@ a[data-tool-tip]:hover::after {
   align-items: center;
   font-size: 1.05em;
   background-image: linear-gradient(20deg, #063a58 0%, #80bde3 100%);
-  /* border: 1px solid rgb(208, 208, 208); */
+}
+
+.top-container--green {
+  background-image: linear-gradient(20deg, #002203 0%, rgb(80, 115, 72) 100%);
+}
+
+.top-container--salmon {
+  background-image: linear-gradient(20deg, #9e4946 0%, #ff9d7c 100%);
 }
 
 .top-container ul {
@@ -333,42 +358,9 @@ a[data-tool-tip]:hover::after {
 
 /* HEADER */
 
-header h1 {
-  font-family: "DM Sans", "IBM Plex Sans", sans-serif;
-  text-transform: capitalize;
-
-  color: #303030;
-}
-
-#header a {
-  color: #f9f6ee;
-}
-
-#header a:hover {
-  text-decoration-line: none;
-  color: #f8f8ce;
-  text-shadow: 0.4px 0 0.2px hsl(56, 100%, 94%);
-}
-
-.name {
-  color: #d9edf9;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8rem;
-  margin: 0 0;
-  text-shadow: 0 0 0.4px #aef3ff;
-}
-
-.slash {
-  color: #f9f6ee;
-  font-family: "Lato";
-  font-size: 2rem;
-  margin: 0 0;
-}
-
-/* Header Animations */
-
-header {
-  animation: 1s ease-out 0s 1 slideInFromLeft;
+/* header Animations */
+.top-container__header {
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
 }
 
 @keyframes slideInFromLeft {
@@ -379,18 +371,47 @@ header {
     transform: translateX(0);
   }
 }
+.top-container__name {
+  font-family: "DM Sans", "IBM Plex Sans", sans-serif;
+  text-transform: capitalize;
+  color: var(--top-container-name-color);
+}
+
+.top-container__title {
+  color: var(--top-container-title-color);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  margin: 0 0;
+  text-shadow: 0 0 0.4px #aef3ff;
+}
+
+.top-container__link,
+.top-container__link:visited,
+.top-container__link:hover,
+.top-container__link:active {
+  color: var(--top-container-name-link-color);
+  text-decoration: none;
+}
+
+.top-container__slash {
+  color: #f9f6ee;
+  font-family: "Lato";
+  font-size: 2rem;
+  margin: 0 0;
+}
 
 /* NAV */
-
 nav {
   font-size: clamp(0.5rem, 0.1rem + 3vw, 1.2555rem);
 }
 
-nav a {
+nav a,
+#header a {
   color: #f9f6ee;
 }
 
-nav a:hover {
+nav a:hover,
+#header a:hover {
   color: #f9f6ee;
   text-decoration: none;
   text-shadow: 0 0 1px #fffde2;
@@ -410,28 +431,32 @@ nav a:hover {
 
 #nav ul li {
   opacity: 0;
-  animation: LisOneByOne 2.5s 1;
+  animation: LisOneByOne 2.3s 1;
   animation-fill-mode: forwards;
 }
 
 #nav ul li:nth-child(1) {
-  animation-delay: 0.3s;
+  animation-delay: 0.2s;
 }
 
 #nav ul li:nth-child(2) {
-  animation-delay: 0.7s;
+  animation-delay: 0.4s;
 }
 
 #nav ul li:nth-child(3) {
-  animation-delay: 1.1s;
+  animation-delay: 0.7s;
 }
 
 #nav ul li:nth-child(4) {
-  animation-delay: 1.5s;
+  animation-delay: 1s;
 }
 
 #nav ul li:nth-child(5) {
-  animation-delay: 1.9s;
+  animation-delay: 1.4s;
+}
+
+#nav ul li:nth-child(6) {
+  animation-delay: 1.8s;
 }
 
 @keyframes LisOneByOne {
@@ -467,7 +492,7 @@ nav li:after {
   border-top: 2px solid #f9f6ee;
   border-bottom: 2px solid #f9f6ee;
   border-radius: 2rem;
-  transition: all 1s ease;
+  transition: all 0.8s ease;
 }
 
 nav li:before {
@@ -476,7 +501,7 @@ nav li:before {
   border-left: 2px solid #f9f6ee;
   border-right: 2px solid #f9f6ee;
   border-radius: 4rem;
-  transition: all 1.2s ease;
+  transition: all 1s ease;
 }
 
 nav li:hover::before {
@@ -488,11 +513,10 @@ nav li:hover::after {
 }
 
 /* BANNER */
-
 #banner {
   padding: 12rem;
   margin: 0 auto;
-  background-image: url(/Icke-optimerad-webbsida/Images/mikael-at-mountain.jpeg);
+  background-image: url(/Images/mikael-at-mountain.jpg);
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
@@ -500,7 +524,7 @@ nav li:hover::after {
   line-height: 1.2em;
   min-width: 100%;
   height: 88.8vh;
-  animation: animatedBackground 10s ease-in-out 1 forwards;
+  animation: animatedBackground 9s ease-in-out 1 forwards;
 }
 
 @keyframes animatedBackground {
@@ -515,28 +539,6 @@ nav li:hover::after {
     background-position: 70% 0;
   }
 }
-
-/* #banner h2 {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  position: relative;
-  top: -15rem;
-  margin: 3rem;
-  color: #fff;
-  display: inline-block;
-  font-size: clamp(1rem, 1rem + 4vw, 1.5rem);
-} */
-
-/* #banner p {
-  font-family: "Rubik", sans-serif;
-  color: #36454f;
-  position: relative;
-  top: -30rem;
-  margin: 3rem auto;
-  line-height: 1.5rem;
-  font-size: clamp(0.6rem, 0.7rem + 0.9vw, 1.8rem);
-  text-transform: uppercase;
-} */
 
 .bar-under-banner {
   position: absolute;
@@ -556,7 +558,7 @@ nav li:hover::after {
 #bar-under-banner-content {
   margin: 0 auto;
   text-align: center;
-  color: white;
+  color: var(--def);
   display: flex;
   justify-content: center;
 }
@@ -579,7 +581,6 @@ nav li:hover::after {
 }
 
 /* BUTTONS */
-
 .btn {
   display: flex;
   justify-content: center;
@@ -595,7 +596,6 @@ nav li:hover::after {
 }
 
 /* MAIN */
-
 main {
   margin: 0 auto;
   display: grid;
@@ -622,6 +622,7 @@ main h2 {
   margin-top: 10rem;
 }
 
+/* Grid and Sections */
 .grid-layout {
   display: grid;
   grid-row: 4;
@@ -634,24 +635,90 @@ main h2 {
   animation: fader 2s;
 }
 
+.grid-layout--optimization {
+  margin: 1rem auto;
+}
+
+.section {
+  padding: 2rem 1.5rem;
+  border: 1px solid rgb(246, 246, 246);
+}
+
+.section--1 {
+  grid-area: section1;
+}
+
+.section--2 {
+  grid-area: section2;
+  background-color: var(--alt-background);
+}
+
+.section--3 {
+  grid-area: section3;
+}
+
+/* Images */
+
+.image-space {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem 5rem 25rem 5rem;
+  margin: 0;
+  background-image: linear-gradient(0deg, #2c3e50 0%, #4ca1af 100%);
+  text-align: center;
+}
+
 .image-container {
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
-  justify-content: space-around;
-  margin-bottom: -30%;
+}
 
-  /* border: 0.5rem solid rgb(250, 250, 250); */
-  border-radius: 50%;
+.image-container--image-section {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: -30%;
+}
+
+.image-container--article-section {
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.image-container__body {
+  color: var(--body-text-color);
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1rem;
 }
 
 .img {
-  width: 15rem;
-  height: 15rem;
-  padding: 0;
   text-align: center;
+}
+
+.img--small {
+  width: 20rem;
+  height: 20rem;
+}
+
+.img--inArticle {
+  width: 100%;
+  margin: 0.6rem;
+}
+
+.img--rounded {
   border-radius: 50%;
+}
+
+.img--bordered {
   border: 0.5rem solid white;
+}
+
+.img--big {
+  width: 50%;
 }
 
 img:before {
@@ -660,51 +727,59 @@ img:before {
   margin-top: 100%;
 }
 
-figure {
-  width: 33%;
+.figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0;
-  margin: 0;
+  margin: 2rem 5rem;
+  text-align: center;
+  width: 100%;
 }
 
-figcaption p {
-  color: #fff;
+.figure--image-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.figure--article-section {
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.figcaption {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.8rem; /* ¾ of the body text */
+  margin: 0.2rem 1rem;
+  padding: 0;
+  line-height: 1rem;
+}
+
+.figcaption--article-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.figcaption--article-section__body {
   font-size: 0.8rem;
 }
 
-.image-space {
-  display: block;
-  position: relative;
-  width: 100%;
-  padding: 7rem;
-  margin: 0;
-  background-image: linear-gradient(0deg, #2c3e50 0%, #4ca1af 100%);
-  text-align: center;
-  z-index: 3000;
+.figcaption--image-section {
+  width: 500px;
 }
 
-.section1,
-.section2,
-.section3 {
-  padding: 2rem 1.5rem;
-}
-
-.section1 {
-  grid-area: section1;
-  border: 1px solid rgb(246, 246, 246);
-}
-
-.section2 {
-  grid-area: section2;
-  border: 1px solid rgb(246, 246, 246);
-}
-
-.section3 {
-  grid-area: section3;
-  border: 1px solid rgb(246, 246, 246);
+.figcaption--image-section__body {
+  color: #fff;
+  padding: 0.2rem;
 }
 
 /* REFERENCES-FOOTER */
-
 .refs-footer {
   display: flex;
   justify-content: center;
@@ -745,6 +820,7 @@ figcaption p {
 }
 
 .refs li {
+  list-style: none;
   font-size: 1rem;
   font-style: italic;
   color: rgb(81, 81, 85);
@@ -766,8 +842,21 @@ figcaption p {
   text-decoration-color: rgb(82, 4, 4);
 }
 
-/* SHOWCASE PAGE */
+/* OPTIMIZATION PAGE */
+.optimization {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 0;
+}
 
+.optimization > h2 {
+  padding: 0;
+  margin: 1rem auto;
+}
+
+/* SHOWCASE PAGE */
 .showcase {
   margin: 0 auto;
   display: flex;
@@ -782,7 +871,6 @@ figcaption p {
 }
 
 /* SERVICES PAGE */
-
 .services {
   margin: 0 auto;
   display: flex;
@@ -797,7 +885,6 @@ figcaption p {
 }
 
 /* ABOUT PAGE */
-
 .about {
   margin: 0 auto;
   display: grid;
@@ -827,7 +914,6 @@ figcaption p {
 }
 
 /* CONTACT PAGE */
-
 .contact-page {
   margin: 0 auto;
   display: flex;
@@ -842,13 +928,12 @@ figcaption p {
 }
 
 /* 10. FOOTER */
-
 .page-footer {
   font-family: "Montserrat";
   padding: 8em 0 6em 0;
   color: #fffff0;
   margin: 0 auto;
-  background: url(../images/mikael-with-guitar2.jpeg);
+  background: url(../images/mikael-with-guitar2.jpg);
   background-color: #6e6e6e;
   background-blend-mode: multiply;
   background-size: 100%;
@@ -900,7 +985,6 @@ ul.icons li {
 }
 
 /* FOOTER ANIMATIONS */
-
 .icons li {
   transition: all 0.4s ease-in-out 0.1s;
 }
@@ -911,15 +995,192 @@ ul.icons li {
 }
 
 /* GENERAL SITE ANIMATIONS */
-
 .fadeIn {
   opacity: 0;
-  -moz-transition: opacity 3s;
-  -webkit-transition: opacity 3s;
-  -o-transition: opacity 3s;
-  transition: opacity 3s;
+  -moz-transition: opacity 2s;
+  -webkit-transition: opacity 2s;
+  -o-transition: opacity 2s;
+  transition: opacity 2s;
 }
 
 body.loaded .fadeIn {
   opacity: 1;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1100px) {
+  h1 {
+    font-size: clamp(
+      0.3rem,
+      0.5rem + 3vw,
+      1.8rem
+    ); /* Responsive fluid font-size with rem and clamp setting minium, between and max points */
+    margin: 0.2em 0.4em;
+  }
+
+  nav {
+    font-size: clamp(0.4rem, 0.1rem + 3vw, 1.1rem);
+  }
+}
+
+@media screen and (max-width: 1248px) {
+  .grid-layout {
+    display: grid;
+    grid-area: grid-layout grids;
+    background-color: #fff;
+    margin: -20rem auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "section1 section2"
+      "section1 section3";
+    animation: fader 2s;
+  }
+
+  .grid-layout--optimization {
+    margin: 1rem auto;
+  }
+
+  .section1 {
+    grid-area: section1;
+    border: 1px solid rgb(246, 246, 246);
+  }
+
+  .section2 {
+    grid-area: section2;
+    border: 1px solid rgb(246, 246, 246);
+  }
+
+  .section3 {
+    grid-area: section3;
+    border: 1px solid rgb(246, 246, 246);
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  /* TOP CONTAINER (Holding Header and Navigation) */
+
+  h1 {
+    font-size: clamp(
+      0.3rem,
+      0.5rem + 3vw,
+      1.6rem
+    ); /* Responsive fluid font-size with rem and clamp setting minium, between and max points */
+    margin: 0.2em 0.4em;
+  }
+
+  nav {
+    font-size: clamp(0.3rem, 0.1rem + 3vw, 1rem);
+  }
+
+  .top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05em;
+    background-image: linear-gradient(20deg, #063a58 0%, #80bde3 100%);
+  }
+
+  .top-container ul {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+  }
+
+  .top-container ul li {
+    padding: 1rem 2em;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 969px) {
+  /* TOP CONTAINER (Holding Header and Navigation) */
+
+  .top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.05em;
+    background-image: linear-gradient(20deg, #063a58 0%, #80bde3 100%);
+  }
+
+  .top-container ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+
+  .top-container ul li {
+    padding: 1rem 2em;
+    justify-content: space-around;
+  }
+
+  h1 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #banner {
+    padding: 9rem;
+    margin: 0 auto;
+    background-image: url(/Images/mikael-at-mountain.jpeg);
+    background-size: cover;
+    background-position: top center;
+    background-attachment: fixed;
+    text-align: center;
+    line-height: 1.2em;
+    min-width: 100%;
+    height: 100%;
+    animation: animatedBackground 10s ease-in-out 1 forwards;
+  }
+
+  .bar-under-banner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6rem;
+    padding: 2.5rem;
+    background: rgba(18, 21, 37, 0.722);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.4px);
+    -webkit-backdrop-filter: blur(2.4px);
+    border: 0.05rem solid rgba(0, 74, 93, 0.84);
+    text-align: center;
+  }
+
+  .grid-layout {
+    display: flex;
+    flex-wrap: wrap;
+    flex: auto;
+    flex-basis: content;
+    flex-direction: column;
+    background-color: #fff;
+    margin: -20rem auto;
+    animation: fader 2s;
+  }
+
+  .grid-layout--optimization {
+    margin: 1rem auto;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img {
+    width: 15rem;
+    height: 15rem;
+    padding: 0.2rem;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.5rem solid white;
+  }
 }

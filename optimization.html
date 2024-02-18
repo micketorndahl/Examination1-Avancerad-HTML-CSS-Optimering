@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS LINKS START -->
+  <link rel="stylesheet"
+        href="Styles/style.css" />
+  <link rel="stylesheet"
+        media="print"
+        href="Styles/print.css" />
+  <!-- CSS END -->
+
+  <!-- FONTS START -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Poppins&display=swap"
+        rel="stylesheet" />
+  <!-- FONTS END-->
+
+  <title>Mikael Torndahl</title>
+</head>
+
+<body>
+  <!-- Top Container Start -->
+  <div class="top-container top-container--green fadeIn">
+    <!-- Header Start -->
+    <header class="top-container__header">
+      <h1 class="top-container__name">
+        <strong>
+          <a class="top-container__link"
+             href="index.html">Mikael Torndahl</a>
+        </strong>
+        <span class="top-container__slash"> </span><span class="top-container__title">Portfolio</span>
+      </h1>
+
+      <!-- Header End -->
+    </header>
+    <!-- Navigation Start -->
+
+    <nav id="nav">
+      <ul class="fadeIn">
+        <li>
+          <a href="index.html">Home </a>
+        </li>
+        <li>
+          <a href="optimization.html">Optimization</a>
+        </li>
+
+        <li>
+          <a href="showcase.html">Showcase</a>
+        </li>
+
+        <li>
+          <a href="services.html">Services</a>
+        </li>
+
+        <li>
+          <a href="about.html">About</a>
+        </li>
+
+        <li>
+          <a href="contact.html">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Navigation End -->
+  </div>
+  <!-- Top Container End-->
+
+
+
+  <!-- Main Content Start -->
+  <main class="optimization">
+    <h2>ProcessAnalys - Optimering</h2>
+
+
+    <div class="grid-layout grid-layout--optimization">
+      <section class="section section--1">
+        <h3>Inledning</h3>
+        <p>Jag börjar med det uppenbara att banta index.html och styles.css filerna på det som inte behövs.
+          Bortkommenterad kod tar jag bort, fonter som inte används, upprepad kod som gör samma sak etc. Citat från
+          mdn-web-docs:</p>
+        <blockquote class="blockquote--article-section">
+          Remove unnecessary styles: This may sound obvious, but it is surprising how many developers forget to clean
+          up unused CSS rules that were added to their stylesheets during development and ended up not being used.
+        </blockquote>
+
+        <cite class="cite--article">- Mdn-Web-Docs</cite>
+        <span class="cite-ref">(CSS Performance Optimization - Learn Web Development | MDN, 2023)</span>
+
+        <p>
+          Jag ändrar sedan så att alla fonter som används är inom samma link href, tidigare hade jag flera länkar för
+          varje enskild font. Inom script-tagen för font-awesome lägger jag till async-attributet som låter html bli
+          tolkat medans scriptet hämtas vilket kan förbättra sidans laddningshastighet. Jag tar bort bilder som inte
+          används. Jag tar bort css-filer som egentligen inte behövs i mitt fall då de inte gör någon faktiskt skillnad
+          på utseendet när jag provar att kommentera bort koden. Jag hade en css-reset fil från Eric Meyer (CSS Tools:
+          Reset CSS, 2019) Som inte behövs. Jag lägger till media-queries i botten av style.css filen istället för att
+          ha en separat fil för detta. Jag tar även bort fonts.css den innehåller bara en font-face regel som jag
+          istället kan lägga i toppen av style.css.
+          Jag kollar efter upprepning i css.style filen och ser till exempel att jag skrivit nav a {color: #fff) och
+          sedan senare #header a {color: #fff) dessa kan jag kombinera till nav a, #header a {color: #fff) istället.
+          Detta gör jag på fler ställen så att upprepning minskas och därmed blir filen mindre. Jag tar bort whitespaces
+          mellan kommentarer och delar av css-kod.
+        </p>
+
+        <h3>BILDOPTIMERING</h3>
+        <p>Det finns flera sätt att optimera bilder som är en vanlig bov bakom sega laddningtider för en webbsida
+          pga
+          dess storlek som ska hämtas ner från klient till server. Jag börjar lätt med att lägga till lazy-loading
+          som
+          görs genom att lägga till ett loading-attribut på ett img-element som i sin tur sätts till ”lazy”. Här
+          kommer
+          ett citat från mdn-web-docs som förklarar varför jag beslutat mig för detta.
+
+          <blockquote class="blockquote--article-section">
+            Very often, webpages contain many images that contribute to data-usage and how fast a page can load.
+            Most of
+            those images are off-screen (non-critical), requiring a user interaction, like scrolling, in order to
+            view
+            them.
+          </blockquote>
+          <cite class="cite--article">- Mdn-Web-Docs</cite>
+          <span class="cite-ref">(Lazy Loading - Web Performance | MDN, n.d.)</span>
+
+
+
+          Det är alltså onödigt att bilder som ligger utanför det användaren ser på skärmen ska laddas in direkt
+          och
+          just detta motverkar jag med lazy-loading. Nästa steg jag tar för att optimera min webbsida är att
+          försöka få
+          ner storleken på mina bilder. Detta kan jag göra genom kompression. Förtydligande:
+
+          <blockquote class="blockquote--article-section">
+            Bildkompression omfattar metoder för att komprimera i huvudsak två-dimensionella digitala bilder i syfte
+            att
+            minska datavolymen för lagring och/eller överföring.
+          </blockquote>
+
+          <cite class="cite--article">- Wikipedia</cite>
+          <span class="cite-ref">(Bildkompression, 2023)</span>
+
+          För att göra detta finns en rad olika program/konverterare både desktop och webb-baserade. Jag följer
+          Christians exempel (Lärare inom kursen ”Avancerad Webbutveckling med HTML och CSS” (AWH201)) och använder
+          mig
+          av squoosh.app. (Squoosh, n.d.)
+          I och med detta lyckas jag få ner storleken på bildfilerna en hel del genom att offra en viss
+          bildkvalitet som
+          inte är speciellt noterbar, det kan det vara värt för att få webbsidan att ladda snabbare.
+        </p>
+
+        <div class="image-container image-container--article-section">
+          <figure class="figure figure--article-section">
+            <img class="img img--inArticle"
+                 src="Images/kompression-med-squoosh.jpg"
+                 alt="Compression with Squoosh"
+                 loading="lazy" />
+
+            <figcaption>
+              <p class="image-container__body">
+                Här ett exempel på hur det kan se ut när man vill använda kompression för att få ner storleken på en
+                bild i detta fall i den webbaserade konverteraren squoosh.app
+              </p>
+            </figcaption>
+          </figure>
+
+      </section>
+
+      <section class="section section--2">
+        <h3>VILKEN TEKNIK?</h3>
+        <p> Jag börjar fundera över vilken av teknikerna BEM, SMACSS eller OOCSS som jag ska använda mig av. Jag
+          googlar
+          runt för att se vad som används mest, vad som kan tänka sig vara populärast alternativt bäst. Jag får fram
+          svar och indikerar på att något skulle vara bättre än det andra utan att det är i vilket sammanhang man ska
+          använda någon av dessa tekniker som avgör vad som är passande. Jag kom över en blog-plost:
+          Organize-css-modular-architecture vilket förde mig emot att använda BEM. (Organize CSS with a Modular
+          Architecture: OOCSS, BEM, SMACSS, 2022).
+          Jag läste sedan en blogpost/artikel av Harry Roberts och kände mig redo att sätta mig in I tekniken efter
+          detta citat:
+
+          <blockquote class="blockquote--article-section">
+            I’d strongly encourage others to consider adopting it as well because it just makes everything a lot
+            tighter
+            and more connected, making code easier to maintain by teams, or even just by yourself a few months down the
+            line.
+          </blockquote>
+
+          <cite class="cite--article">– Harry Roberts</cite>
+          <span class="cite-ref">(MindBEMding – Getting Your Head ’Round BEM Syntax – CSS Wizardry–Web Performance
+            Optimisation, 2013)</span>
+
+
+          Jag blev än mer styrkt I att använda BEM genom detta citat från deras hemsida getbem.com
+
+          <blockquote class="blockquote--article-section">
+            The reason I choose BEM over other methodologies comes down to this: it is less confusing than the other
+            methods (i.e. SMACSS) but still provides us the good architecture we want (i.e. OOCSS) and with a
+            recognizable
+            terminology.
+          </blockquote>
+
+          <cite class="cite--article">- Mark McDonnell</cite>
+          <span class="cite-ref">(Maintainable CSS with BEM (BEM — Block Element Modifier))</span>
+
+        </p>
+        <h3>BEM</h3>
+        <p>BEM står för Block, Element, Modifer och är en metodik och namnkonvention som används för att kunna
+          implementera hanterbar CSS som är skalbar och fungerar väl för underhåll och förändring under ett projekt.
+          BEM
+          stylar HTML-element och komponenter på ett modulärt och strukturerat sätt.</p>
+
+        <h3>Varför ska man använda BEM?</h3>
+        <p>Om man vill implementera en ny stil för en komponent så ser man tydligt vilka modifierare och barn
+          (modifiers/children) som redan finns. Man kan genom BEM snabbt få en uppfattning om vilket element som
+          är
+          beroende av ett annat genom namnkonventionen. Som exempel att .btn__highlight hör till/är beroende av
+          .btn.
+          Designers och utvecklare kan konsekvent namnge komponenter för enklare kommunikation mellan
+          teammedlemmar. BEM
+          ger alla i ett projekt ett syntax(regler) att följa som gör att de håller sig på samma bana och
+          undviker
+          konflikt mellan olika sätt att förhålla sig till CSS inom ett projekt. Det effektiverar även
+          projektprocessen
+          genom att alla håller sig från början till samma regler. Harry Roberts förklarar det stora problemet
+          med att
+          inte använda sig av en metodik som BEM, man saknar helt enkelt självförtroende eftersom man inte vet
+          vad saker
+          gör, det blir övermäktigt och man vågar inte ändra på något.
+
+          <blockquote class="blockquote--article-section">
+            This is the main reason we end up with bloated code bases, full of legacy and unknown CSS that we
+            daren’t
+            touch. We lack the confidence to be able to work with and modify existing styles because we fear the
+            consequences of CSS’ globally operating and leaky nature. Almost all problems with CSS at scale boil
+            down to
+            confidence (or lack thereof): People don’t know what things do any more. People daren’t make changes
+            because
+            they don’t know how far reaching the effects will be.
+          </blockquote>
+
+          <cite class="cite--article">- Harry Roberts</cite>
+          <span class="cite-ref">(BEM 101, 2015)</span>
+        </p>
+      </section>
+
+      <section class="section section--3">
+        <h3>Lighthouse</h3>
+        <p>Lighthouse är ett automatiserat verktyg med öppen källkod för att förbättra kvaliteten på webbsidor.
+          Verktyget kan köras mot vilken webbsida som helst både offentliga såväl som de som kräver autentisering.
+          Lighthouse kör granskningar av prestanda, tillgänglighet, progressiva webbappar, SEO och mer därtill.
+          Verktyget kan köras genom DevTools i webbläsaren Chrome, från kommandoraden eller som nodmodul.</p>
+
+        <h4>TESTRESULTAT MED LIGHTHOUSE: ICKE-OPTIMERAD WEBBSIDA</h4>
+        <p>Resultatet hos den icke-optimerade webbsidan lämnar utrymme till förbättring med ett resultat på 84 i
+          performance. Enbart kompressionen av bilderna och tömmandet av onödigt innehåll i koden kommer
+          förhoppningsvis
+          att få upp denna siffra.
+          Ett screenshot på network taben i dev-tools som också kan vara relevant att granska vid optimering av en
+          webbsida.
+        </p>
+
+        <div class="image-container image-container--article-section">
+          <figure class="figure figure--article-section">
+            <img class="img img--inArticle"
+                 src="Images/icke-optimerad-sida-resultat.jpg"
+                 alt="Lighthouse-performance-resultat"
+                 loading="lazy" />
+
+            <figcaption>
+              <p class="image-container__body">
+                Här ser vi resultatet i lighthouse av den icke optimerade sidan.
+              </p>
+            </figcaption>
+          </figure>
+
+        </div>
+
+        <div class="image-container image-container--article-section">
+          <figure class="figure figure--article-section">
+            <img class="img img--inArticle"
+                 src="Images/icke-optimerad-sida-network-resultat.jpg"
+                 alt="Lighthouse-performance-resultat"
+                 loading="lazy" />
+
+
+            <figcaption>
+              <p class="image-container__body">
+                Här ser vi resultatet under network-taben i dev-tools.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+
+        <h4>TESTRESULTAT MED LIGHTHOUSE: OPTIMERAD WEBBSIDA</h4>
+        <p>sefe</p>
+
+      </section>
+
+
+  </main>
+  <!-- Main-Content End -->
+
+  <!-- Reference-Footer Start -->
+  <footer class="refs-footer">
+    <h3>Referenslista</h3>
+    <ul class="refs">
+
+      <li>
+        CSS performance optimization - Learn web development | MDN. (2023, September 13).
+        Developer.mozilla.org. <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://developer.mozilla.org/en-US/docs/Learn/Performance/CSS">developer.mozilla.org</a>
+        </span>
+      </li>
+
+      <li>
+        Organize CSS with a Modular Architecture: OOCSS, BEM, SMACSS. (2022, April 12). Snipcart. <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://snipcart.com/blog/organize-css-modular-architecture">snipcart.com</a>
+        </span>
+      </li>
+
+      <li>
+        MindBEMding – getting your head ’round BEM syntax – CSS Wizardry – Web Performance Optimisation.
+        (2013, January
+        25).
+        Csswizardry.com.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">csswizardry.com</a>
+          </a>
+        </span>
+      </li>
+
+      <li>
+        Contributors, V. S., Vladimir Starkov and. (n.d.).
+        BEM — Block Element Modifier. Getbem.com.<br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://getbem.com/">Getbem.com</a>
+        </span>
+      </li>
+
+      <li>
+        Why I use the BEM naming convention for my CSS
+        – Kevin Powell (CSS Youtube teacher) –
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://youtu.be/SLjHSVwXYq4?si=Zf9Ly-LcSZKNZDal">Youtube<i
+               class="fa-brands fa-square-youtube"></i></a>
+        </span>
+      </li>
+
+      <li>
+        CSS / Methodology / BEM. (n.d.). En.bem.info.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://en.bem.info/methodology/css/">en.bem.info</a>
+        </span>
+      </li>
+
+      <li>
+        BEM 101. (2015, April 2). CSS-Tricks.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://css-tricks.com/bem-101/">css-tricks.com</a>
+        </span>
+      </li>
+
+
+      <li>
+        Maximally optimizing image loading for the web in 2021.
+        (2021, February 16). CSS-Tricks.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://css-tricks.com/maximally-optimizing-image-loading-for-the-web-in-2021/">css-tricks.com</a>
+        </span>
+      </li>
+
+      <li>
+        Lazy loading - Web Performance | MDN. (n.d.). Developer.mozilla.org.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://developer.mozilla.org/enUS/docs/Web/Performance/Lazy_loading">developer.mozilla.org</a>
+        </span>
+      </li>
+
+      <li>
+        Bildkompression. (2023, September 12). Wikipedia.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://sv.wikipedia.org/wiki/Bildkompression">wikipedia.org</a>
+        </span>
+      </li>
+
+      <li>
+        Squoosh. (n.d.). Squoosh.app.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://squoosh.app/">squoosh.app</a>
+        </span>
+      </li>
+
+      <li>
+        CSS Tools: Reset CSS. (2019). Meyerweb.com.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://meyerweb.com/eric/tools/css/reset/">meyerweb.com</a>
+        </span>
+      </li>
+
+      <li>
+        Overview | Lighthouse. (n.d.). Chrome for Developers.
+        <br />
+        <span class="ref-note">
+          Available from:
+          <a href="https://developer.chrome.com/docs/lighthouse/overview">developer.chrome.com</a>
+        </span>
+      </li>
+
+
+    </ul>
+  </footer>
+  <!--Reference-Footer End-->
+
+  <!-- Page-Footer Start -->
+
+  <footer class="
+             page-footer">
+    <ul class="icons">
+      <li>
+        <a href="https://www.linkedin.com/in/mikael-torndahl-03381a84"
+           class="footer-link fab fa-linkedin fa-2x"></a>
+      </li>
+
+      <li>
+        <a href="https://www.facebook.com/micketorndahl/"
+           class="footer-link fab fa-facebook-f fa-2x"></a>
+      </li>
+
+      <li>
+        <a href="https://twitter.com/TorndahlMikael"
+           class="footer-link fab fa-twitter fa-2x"></a>
+      </li>
+
+      <li>
+        <a href="https://www.instagram.com/micketorndahl/"
+           class="footer-link fab fa-instagram fa-2x"></a>
+      </li>
+    </ul>
+
+    <ul class="contact">
+      <li>
+        <span><i class="fa fa-envelope"
+             aria-hidden="true"></i></span>
+        mikaeltorndahl@gmail.com
+      </li>
+
+      <li>
+        <span><i class="fa-solid fa-phone-flip"></i></span> 0709494452
+      </li>
+    </ul>
+
+    <ul class="copyright">
+      <li><span>©</span> Mikael Torndahl</li>
+
+      <li>Design: Mikael</li>
+
+      <li>
+        Images: Mikael &
+        <a href="http://unsplash.com"
+           class="last-link-border">Unsplash</a>
+      </li>
+    </ul>
+  </footer>
+  <!-- Page-Footer End -->
+
+  <!-- JAVASCRIPT, FONTAWESOME & JQUERY LINKS START -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+          integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+          crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+
+  <script defer
+          src="https://kit.fontawesome.com/1624c2b813.js"
+          crossorigin="anonymous"
+          async></script>
+  <!-- JAVASCRIPT, FONTAWESOME & JQUERY LINKS END -->
+</body>
+
+</html>
